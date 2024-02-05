@@ -1,0 +1,7 @@
+serial_sub:
+  ros__parameters:
+    anchor_id:
+      - "5478"
+      - "2479"
+      - "4248"
+      - "f678"
