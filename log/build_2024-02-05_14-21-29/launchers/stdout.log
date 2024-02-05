@@ -1,0 +1,27 @@
+running egg_info
+creating ../../build/launchers/launchers.egg-info
+writing ../../build/launchers/launchers.egg-info/PKG-INFO
+writing dependency_links to ../../build/launchers/launchers.egg-info/dependency_links.txt
+writing entry points to ../../build/launchers/launchers.egg-info/entry_points.txt
+writing requirements to ../../build/launchers/launchers.egg-info/requires.txt
+writing top-level names to ../../build/launchers/launchers.egg-info/top_level.txt
+writing manifest file '../../build/launchers/launchers.egg-info/SOURCES.txt'
+reading manifest file '../../build/launchers/launchers.egg-info/SOURCES.txt'
+writing manifest file '../../build/launchers/launchers.egg-info/SOURCES.txt'
+running build
+running install
+running install_data
+creating /home/adriel/dwm_ws/install/launchers/share/ament_index
+creating /home/adriel/dwm_ws/install/launchers/share/ament_index/resource_index
+creating /home/adriel/dwm_ws/install/launchers/share/ament_index/resource_index/packages
+copying resource/launchers -> /home/adriel/dwm_ws/install/launchers/share/ament_index/resource_index/packages
+copying package.xml -> /home/adriel/dwm_ws/install/launchers/share/launchers
+creating /home/adriel/dwm_ws/install/launchers/share/launchers/launch
+copying launch/serial.launch.py -> /home/adriel/dwm_ws/install/launchers/share/launchers/launch
+creating /home/adriel/dwm_ws/install/launchers/share/launchers/config
+copying config/serial_params.yaml -> /home/adriel/dwm_ws/install/launchers/share/launchers/config
+copying config/rviz_config.rviz -> /home/adriel/dwm_ws/install/launchers/share/launchers/config
+running install_egg_info
+Copying ../../build/launchers/launchers.egg-info to /home/adriel/dwm_ws/install/launchers/lib/python3.10/site-packages/launchers-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/adriel/dwm_ws/build/launchers/install.log'

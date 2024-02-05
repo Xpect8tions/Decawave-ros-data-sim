@@ -1,0 +1,21 @@
+{
+  "C_Cpp.errorSquiggles": "disabled",
+  "python.autoComplete.extraPaths": [
+    "/home/adriel/dwm_ws/install/my_locator/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/my_launchers/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/dwm1001_visualization/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/dwm1001_transform/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/dwm1001_driver/lib/python3.10/site-packages",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "/home/adriel/dwm_ws/install/my_locator/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/my_launchers/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/dwm1001_visualization/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/dwm1001_transform/lib/python3.10/site-packages",
+    "/home/adriel/dwm_ws/install/dwm1001_driver/lib/python3.10/site-packages",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ]
+}
