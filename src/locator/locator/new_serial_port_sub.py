@@ -1,10 +1,8 @@
 # region imports
 import subprocess
-import datetime
-import time 
+import time
 import numpy as np
 from datetime import datetime
-from re import sub
 
 from std_msgs.msg import String
 import rclpy
@@ -26,7 +24,9 @@ Max_anchors = 4
 Topic = "/output"  # change depending on the actual topic name
 ################################
 # endregion
-subprocess.run(["get","topic","info"],shell=True,capture_output= True,text=True)
+subprocess.run(["get", "topic", "info"], shell=True, capture_output=True, text=True)
+
+
 class RangingSub(Node):
     def __init__(self):
         super().__init__(Node_name)
@@ -40,11 +40,10 @@ class RangingSub(Node):
         self.get_logger().info("declared parameters:")
         self.anchor_list = self.get_parameter("anchor_id").value
         self.get_logger().info(f"anchor_id = {self.anchor_list}")
-
         self.get_logger().info(f"creating subscription to {Topic} topic")
         self.sub1 = self.create_subscription(String, Topic, self.subscriber, 1)
         self.last_proc_list = []
-        
+
         self.Rviz_pubber = self.create_publisher(Marker, "marker_msgs", 10)
         self.pub = self.create_timer(1 / 10, self.rviz_pub)
         self.last_list = []
@@ -69,23 +68,24 @@ class RangingSub(Node):
                 if '\n' in info:
                     info = info.replace('\n', '')
                 good_list.append(str(info))
-                item +=1
+                item += 1
             self.get_logger().info(f'good_list = {good_list}')
             full_list = []
             self.some_list = []
 
             for itm in good_list:
                 if '[' in itm:
-                    itm = itm.replace('[',',')
-                    itm = itm.replace(']','')
+                    itm = itm.replace('[', ',')
+                    itm = itm.replace(']', '')
                 elif 'le_us=' in itm:
-                    itm = itm.replace('le_us=','')
+                    itm = itm.replace('le_us=', '')
                 elif 'est' in itm:
-                    itm = itm.replace('est','')
+                    itm = itm.replace('est', '')
                 self.get_logger().info(f'itm = {itm}')
                 half_list = itm.split(',')
                 self.get_logger().info(f'half_list = {half_list}')
                 self.some_list.append(half_list)
+            self.get_logger().info(f'some_list = {self.some_list}')
             count = 0
             for some in self.some_list:
                 self.get_logger().info(f'count = {count}')
@@ -93,7 +93,7 @@ class RangingSub(Node):
                 if len(some) == 1:
                     store = some[0]
                     self.some_list[count+1].remove('est')
-                    self.some_list[count+1].insert(0,store)
+                    self.some_list[count+1].insert(0, store)
                     self.get_logger().info(f'self.some_list[count+1] = {self.some_list[count+1]}')
                     self.some_list.remove(some)
                 count += 1
@@ -102,8 +102,13 @@ class RangingSub(Node):
                     if i != 'est':
                         full_list.append(i)
             self.get_logger().info(f'somelist = {self.some_list}')
-            self.get_logger().info(f'full_list = {full_list}')
-            for strng in full_list:
+            full_list = self.some_list
+            real_list = []
+            for l_item in full_list:
+                for item in l_item:
+                    real_list.append(item)
+            self.get_logger().info(f'real_list = {real_list}')
+            for strng in real_list:
                 write_list.append(strng)
             str_time = str(self.time)
             if self.last_list == []:
@@ -112,16 +117,16 @@ class RangingSub(Node):
                 self.last_time = str_time
                 self.get_logger().info(f'last_time = {self.last_time}')
             else:
-                x1 = float(full_list[len(full_list)-3])
-                y1 = float(full_list[len(full_list)-2])
-                z1 = float(full_list[len(full_list)-1])
-                calc_list = [x1,y1,z1]
+                x1 = float(real_list[len(real_list)-3])
+                y1 = float(real_list[len(real_list)-2])
+                z1 = float(real_list[len(real_list)-1])
+                calc_list = [x1, y1, z1]
                 self.get_logger().info(f'calc_list = {calc_list}')
 
                 x2 = float(self.last_list[len(self.last_list)-3])
                 y2 = float(self.last_list[len(self.last_list)-2])
                 z2 = float(self.last_list[len(self.last_list)-1])
-                last_list_calc = [x2,y2,z2]
+                last_list_calc = [x2, y2, z2]
                 self.get_logger().info(f'last_list_calc = {last_list_calc}')
                 distance = np.sqrt(((x1 - x2)**2)+((y1 - y2)**2)+((z1 - z2)**2))
                 self.get_logger().info(f'distance = {distance}')
@@ -133,17 +138,18 @@ class RangingSub(Node):
                 self.get_logger().info(f'time_diff_math = {time_diff_math}')
                 vel = distance/time_diff_math
                 self.get_logger().info(f'vel = {vel}')
-            self.last_list = full_list
+            self.last_list = real_list
             write_list.append(vel)
+            self.get_logger().info(f'write_list = {write_list}')
             write = "\n"
             for info in write_list:
-                write = f"{write}{info}, "
+                write = f'{write}{info}, '
             self.get_logger().info(f'write = {write}')
             Dwm_logger.write(write)
-        self.get_logger().info(f'subscriber end')
+        self.get_logger().info('subscriber end')
 
     def rviz_pub(self):
-        self.get_logger().info(f"marker_pub start")
+        self.get_logger().info("marker_pub start")
         if self.has_msg:
             for item in self.some_list:
                 self.get_logger().info(f"item = {item}")
@@ -154,7 +160,7 @@ class RangingSub(Node):
                 msg.header.stamp.sec = int(ts_lis[0])
                 msg.header.stamp.nanosec = int(ts_lis[1])
                 msg.header.frame_id = "map"
-                msg.id = int(f'{item[0]}',16)
+                msg.id = int(f'{item[0]}', 16)
                 msg.type = 3
                 msg.action = 0
                 msg.lifetime.sec = 0
@@ -184,9 +190,11 @@ class RangingSub(Node):
                 # self.get_logger().info(f'published {msg}')
             time.sleep(1/30)
         self.has_msg = False
-        self.get_logger().info(f"marker_pub end")
+        self.get_logger().info("marker_pub end")
+
 
 def main(args=None):
+
     rclpy.init(args=args)
 
     minimal_publisher = RangingSub()

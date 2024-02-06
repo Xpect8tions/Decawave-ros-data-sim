@@ -6,12 +6,13 @@ from rclpy.node import Node
 node_name = "math_pub"
 #####################################
 
+
 class RangingPub(Node):
     def __init__(self):
         super().__init__(node_name)
         self.get_logger().info(f"initalised node: {node_name}")
         self.publish_ = self.create_publisher(String, '/output', 1)
-        self.create_timer(1,self.publish)
+        self.create_timer(1, self.publish)
         self.x = 1.423
         self.y = 1.234
         self.z = 2.134
@@ -20,7 +21,10 @@ class RangingPub(Node):
     def publish(self):
         while (True):
             msg = String()
-            msg.data = f'5478[0.50,0.50,1.97] 2479[5.02,0.50,1.97] \n4248[5.02,3.50,1.97] f678[0.50,3.50,1.97] le_us=5423 \nest[{self.x},{self.y},{self.z},94]'
+            # require the trailing white space in msg.data to ensure string comes out properly
+            msg.data = f'''
+5478[0.50,0.50,1.97] 2479[5.02,0.50,1.97] 4248[5.02,3.50,1.97] f678[0.50,3.50,1.97] le_us=5423 est[{self.x},{self.y},{self.z},94]
+'''
             self.publish_.publish(msg)
             self.get_logger().info(f'published: {msg}')
             self.x += self.incre
@@ -28,6 +32,7 @@ class RangingPub(Node):
             self.incre += 0.001
             break
 # 5478[0.50,0.50,1.97]
+
 
 def main(args=None):
     rclpy.init(args=args)
