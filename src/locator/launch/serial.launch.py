@@ -14,7 +14,7 @@ def generate_launch_description():
         [
             Node(
                 package="locator",
-                executable="new_serial_sub",
+                executable="serial_sub",
                 name="serial_sub",
                 namespace="",
                 parameters=[config],

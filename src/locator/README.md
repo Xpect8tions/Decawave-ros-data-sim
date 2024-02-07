@@ -18,4 +18,4 @@ the information published to the topic are as such:
 
 ## serial_port_sub
 
-[serial_port_sub.py](./locator/serial_port_sub.py) creates a subscriber to the `/output` topic and processes it before saving the recieved data in [DWranging.csv](./logging/DWranging.csv). The csv stores the location and ids of the anchors and tags, along with the quality 
+[serial_port_sub.py](./locator/serial_port_sub.py) creates a subscriber to the `/output` topic and processes it before saving the recieved data in [DWranging.csv](./logging/DWranging.csv). The csv stores the location and ids of the anchors and tags, along with the quality
