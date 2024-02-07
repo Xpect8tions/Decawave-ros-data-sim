@@ -31,7 +31,6 @@ setup(
             "DWranging = logging.DWranging",
             "serial_pub = locator.serial_port_pub:main",
             "serial_sub = locator.serial_port_sub:main",
-            "new_serial_sub = locator.new_serial_port_sub:main",
         ],
     },
 )
