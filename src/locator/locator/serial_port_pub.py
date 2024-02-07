@@ -21,7 +21,6 @@ class RangingPub(Node):
     def publish(self):
         while (True):
             msg = String()
-            # require the trailing white space in msg.data to ensure string comes out properly
             msg.data = f'''
 5478[0.50,0.50,1.97] 2479[5.02,0.50,1.97] 4248[5.02,3.50,1.97] f678[0.50,3.50,1.97] le_us=5423 est[{self.x},{self.y},{self.z},94]
 '''
